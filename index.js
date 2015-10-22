@@ -11,16 +11,23 @@ app.use(function (req, res) {
     headers[req.rawHeaders[i]] = req.rawHeaders[i + 1];
   }
 
-  var queryParams = req._parsedUrl.query.split("&");
   var queryParametersAsObject = {};
 
-  queryParams.forEach(function (queryParam) {
-    queryParametersAsObject[queryParam.split('=')[0]] = queryParam.split('=')[1];
-  });
+  if (req._parsedUrl && req._parsedUrl.query) {
+    var queryParams = req._parsedUrl.query.split("&");
+    queryParams.forEach(function (queryParam) {
+      queryParametersAsObject[queryParam.split('=')[0]] = queryParam.split('=')[1];
+    });
+  }
 
+  res.writeHead(200, {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': headers['Access-Control-Request-Headers'],
+    'Content-Type': 'text/html'
+  });
   res.end('URL: ' + req.url +
-    '\nQuery params: ' + JSON.stringify(queryParametersAsObject, null, 2) +
-    '\nHeaders: ' + JSON.stringify(headers, null, 2));
+    '<br>Query params: ' + JSON.stringify(queryParametersAsObject, null, 2) +
+    '<br>Headers: ' + JSON.stringify(headers, null, 2));
 });
 
 console.log('Listening to requests on port ' + port);
