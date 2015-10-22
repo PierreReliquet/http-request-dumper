@@ -1,0 +1,14 @@
+{
+  "name": "http-request-dumper",
+  "version": "1.0.0",
+  "description": "Logs all incoming requests' path, headers and query parameters",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "connect": "^3.4.0"
+  }
+}
